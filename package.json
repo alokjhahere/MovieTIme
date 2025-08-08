@@ -1,0 +1,29 @@
+{
+  "name": "movietime",
+  "version": "1.0.0",
+  "description": "Movie App",
+  "source": "App.js",
+  "scripts": {
+    "test": "Jest",
+    "start": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alokjhahere/MovieTIme.git"
+  },
+  "author": "Alok Jha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alokjhahere/MovieTIme/issues"
+  },
+  "homepage": "https://github.com/alokjhahere/MovieTIme#readme",
+  "devDependencies": {
+    "parcel": "^2.15.4"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.11"
+  }
+}
