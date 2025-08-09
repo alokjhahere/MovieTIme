@@ -10,6 +10,7 @@ const Body = () => {
   const [type, setType] = useState("");
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
+  const [error, setError] = useState("")
 
  
   const handleInputChange = (e) => {
@@ -32,12 +33,23 @@ const Body = () => {
   }, [search, page])
 
   const fetchData = async () => {
-    const data = await fetch(`https://www.omdbapi.com/?apikey=177068ae&s=${search}&y=${year}&type=${type}&page=${page}`)
-    const json = await data.json();
-    console.log(json.Search);
+    try{
+        setError("");
+        const data = await fetch(`https://www.omdbapi.com/?i=12&apikey=177068ae&s=${search}&y=${year}&type=${type}&page=${page}`)
+        const json = await data.json();
+
+        if (json.Response === "False") {
+        setError(json.Error || "Something went wrong");
+        setTotalResults(0);
+        return;
+      }
     
-    setVideoList(json.Search);
-    setTotalResults(parseInt(json.totalResults) || 0);
+        setVideoList(json.Search);
+        setTotalResults(parseInt(json.totalResults) || 0);
+    } catch (err) {
+      setError("Failed to fetch data. Please try again.");
+    } 
+    
   };
 
   const totalPages = Math.ceil(totalResults/10);
@@ -81,6 +93,18 @@ const Body = () => {
                    Search
             </button>
           </div>
+          
+          {/* Error State */}
+          {error && (
+               <p className="text-center text-red-500 mt-10">{error}</p>
+           )}
+          
+          {/* Empty State */}
+           {!error && videoList.length === 0 && (
+               <p className="text-center text-gray-500 mt-10">
+                    No results found. Try a different search.
+              </p>
+          )}
         
       </div>
 
