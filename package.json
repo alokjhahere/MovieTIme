@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/alokjhahere/MovieTIme#readme",
   "devDependencies": {
+    "daisyui": "^5.0.50",
     "parcel": "^2.15.4"
   },
   "dependencies": {
