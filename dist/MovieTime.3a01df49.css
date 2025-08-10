@@ -54,7 +54,6 @@
     --color-gray-500: oklch(55.1% .027 264.364);
     --color-gray-600: oklch(44.6% .03 256.802);
     --color-gray-900: oklch(21% .034 264.665);
-    --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
     --text-xs: .75rem;

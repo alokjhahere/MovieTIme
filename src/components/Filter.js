@@ -1,5 +1,4 @@
 
-
 const Filter = ({inputValue, setInputValue, year, setYear, type, setType, setSearch}) => {
 
     const handleInputChange = (e) => {

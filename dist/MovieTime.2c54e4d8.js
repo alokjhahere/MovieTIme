@@ -18508,190 +18508,58 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _movieCard = require("./MovieCard");
 var _movieCardDefault = parcelHelpers.interopDefault(_movieCard);
+var _useMovieData = require("../utils/useMovieData");
+var _useMovieDataDefault = parcelHelpers.interopDefault(_useMovieData);
+var _filter = require("./Filter");
+var _filterDefault = parcelHelpers.interopDefault(_filter);
+var _pagination = require("./Pagination");
+var _paginationDefault = parcelHelpers.interopDefault(_pagination);
 var _s = $RefreshSig$();
+'use client'; // Needed if using Next.js App Router and hooks
 const Body = ()=>{
     _s();
-    const [videoList, setVideoList] = (0, _react.useState)(null);
-    const [inputValue, setInputValue] = (0, _react.useState)("");
-    const [search, setSearch] = (0, _react.useState)("movie");
-    const [year, setYear] = (0, _react.useState)("");
-    const [type, setType] = (0, _react.useState)("");
-    const [page, setPage] = (0, _react.useState)(1);
-    const [totalResults, setTotalResults] = (0, _react.useState)(0);
-    const [error, setError] = (0, _react.useState)("");
-    const handleInputChange = (e)=>{
-        setPage(1);
-        setInputValue(e.target.value);
-    };
-    const handleInputYear = (e)=>{
-        setYear(e.target.value);
-    };
-    const handleSearch = ()=>{
-        setSearch(inputValue);
-        setInputValue("");
-    };
-    (0, _react.useEffect)(()=>{
-        fetchData();
-    }, [
-        search,
-        page
-    ]);
-    const fetchData = async ()=>{
-        try {
-            setError("");
-            const data = await fetch(`https://www.omdbapi.com/?i=12&apikey=177068ae&s=${search}&y=${year}&type=${type}&page=${page}`);
-            const json = await data.json();
-            if (json.Response === "False") {
-                setError(json.Error || "Something went wrong");
-                setTotalResults(0);
-                return;
-            }
-            setVideoList(json.Search);
-            setTotalResults(parseInt(json.totalResults) || 0);
-        } catch (err) {
-            setError("Failed to fetch data. Please try again.");
-        }
-    };
+    const { videoList, setSearch, year, setYear, type, setType, error, page, setPage, totalResults } = (0, _useMovieDataDefault.default)();
+    const [inputValue, setInputValue] = (0, _react.useState) < string > "";
     const totalPages = Math.ceil(totalResults / 10);
     if (videoList === null) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
         className: "text-center text-lg mt-10",
         children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/Body.js",
-        lineNumber: 57,
-        columnNumber: 35
+        lineNumber: 30,
+        columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "px-4 sm:px-6 lg:px-12 py-6",
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex flex-col sm:flex-row items-center  gap-2 mb-6",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "flex w-full sm:w-auto ",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                className: "m-2 font-semibold",
-                                children: "Title :"
-                            }, void 0, false, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 64,
-                                columnNumber: 11
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                className: "flex-1 p-2 border border-gray-400 rounded-full focus:outline-none",
-                                placeholder: "Search...",
-                                value: inputValue,
-                                onChange: handleInputChange
-                            }, void 0, false, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 65,
-                                columnNumber: 11
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 63,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                className: "m-2 font-semibold",
-                                children: "Year :"
-                            }, void 0, false, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 73,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                className: "flex-1 p-2 w-25 border border-gray-400 rounded-full focus:outline-none ",
-                                value: year,
-                                onChange: handleInputYear
-                            }, void 0, false, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 74,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                                className: "m-2 font-semibold",
-                                children: "Type :"
-                            }, void 0, false, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 81,
-                                columnNumber: 12
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                                className: "p-2 m-2 border rounded-full bg-white",
-                                value: type,
-                                onChange: (e)=>setType(e.target.value),
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                        value: "",
-                                        children: "All"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Body.js",
-                                        lineNumber: 87,
-                                        columnNumber: 19
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                        value: "movie",
-                                        children: "Movie"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Body.js",
-                                        lineNumber: 88,
-                                        columnNumber: 19
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                        value: "series",
-                                        children: "Series"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Body.js",
-                                        lineNumber: 89,
-                                        columnNumber: 19
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 82,
-                                columnNumber: 14
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                                onClick: handleSearch,
-                                className: "p-2 px-4 bg-gray-900 text-white rounded-full hover:text-blue-400",
-                                children: "Search"
-                            }, void 0, false, {
-                                fileName: "src/components/Body.js",
-                                lineNumber: 92,
-                                columnNumber: 13
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 72,
-                        columnNumber: 9
-                    }, undefined),
-                    error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        className: "text-center text-red-500 mt-10",
-                        children: error
-                    }, void 0, false, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 99,
-                        columnNumber: 16
-                    }, undefined),
-                    !error && videoList.length === 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                        className: "text-center text-gray-500 mt-10",
-                        children: "No results found. Try a different search."
-                    }, void 0, false, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 104,
-                        columnNumber: 16
-                    }, undefined)
-                ]
-            }, void 0, true, {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _filterDefault.default), {
+                inputValue: inputValue,
+                setInputValue: setInputValue,
+                year: year,
+                setYear: setYear,
+                type: type,
+                setType: setType,
+                setSearch: setSearch
+            }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 62,
+                lineNumber: 35,
                 columnNumber: 7
+            }, undefined),
+            error && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                className: "text-center text-red-500 mt-10",
+                children: error
+            }, void 0, false, {
+                fileName: "src/components/Body.js",
+                lineNumber: 47,
+                columnNumber: 9
+            }, undefined),
+            !error && videoList.length === 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                className: "text-center text-gray-500 mt-10",
+                children: "No results found. Try a different search."
+            }, void 0, false, {
+                fileName: "src/components/Body.js",
+                lineNumber: 52,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-6",
@@ -18699,64 +18567,35 @@ const Body = ()=>{
                         data: movie
                     }, index, false, {
                         fileName: "src/components/Body.js",
-                        lineNumber: 114,
+                        lineNumber: 60,
                         columnNumber: 11
                     }, undefined))
             }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 112,
+                lineNumber: 58,
                 columnNumber: 7
             }, undefined),
-            totalPages > 1 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex justify-center gap-4 mt-6",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "btn p-2 px-4 bg-gray-900 text-white rounded-full hover:text-blue-400",
-                        onClick: ()=>setPage((p)=>Math.max(p - 1, 1)),
-                        disabled: page === 1,
-                        children: "Prev"
-                    }, void 0, false, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 121,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        className: "flex items-center font-bold",
-                        children: [
-                            "Page ",
-                            page,
-                            " of ",
-                            totalPages
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 128,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "btn p-2 px-4 bg-gray-900 text-white rounded-full hover:text-blue-400",
-                        onClick: ()=>setPage((p)=>Math.min(p + 1, totalPages)),
-                        disabled: page === totalPages,
-                        children: "Next"
-                    }, void 0, false, {
-                        fileName: "src/components/Body.js",
-                        lineNumber: 131,
-                        columnNumber: 11
-                    }, undefined)
-                ]
-            }, void 0, true, {
+            totalPages > 1 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _paginationDefault.default), {
+                page: page,
+                setPage: setPage,
+                totalPages: totalPages
+            }, void 0, false, {
                 fileName: "src/components/Body.js",
-                lineNumber: 120,
+                lineNumber: 66,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/Body.js",
-        lineNumber: 60,
+        lineNumber: 33,
         columnNumber: 5
     }, undefined);
 };
-_s(Body, "9DR6QqaR5xk/Cl1oIYY0oIy4of0=");
+_s(Body, "5w9XpogEX1yaOLxO1W0BCpG3aPU=", false, function() {
+    return [
+        (0, _useMovieDataDefault.default)
+    ];
+});
 _c = Body;
 exports.default = Body;
 var _c;
@@ -18767,7 +18606,7 @@ $RefreshReg$(_c, "Body");
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"dVPUn","./MovieCard":"bKtWx","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","react":"jMk1U"}],"bKtWx":[function(require,module,exports,__globalThis) {
+},{"react/jsx-dev-runtime":"dVPUn","./MovieCard":"bKtWx","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi","react":"jMk1U","../utils/useMovieData":"79ook","./Filter":"2GzWi","./Pagination":"ozIoh"}],"bKtWx":[function(require,module,exports,__globalThis) {
 var $parcel$ReactRefreshHelpers$e831 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 $parcel$ReactRefreshHelpers$e831.init();
 var prevRefreshReg = globalThis.$RefreshReg$;
@@ -18838,6 +18677,285 @@ var _c;
 $RefreshReg$(_c, "MovieCard");
 
   $parcel$ReactRefreshHelpers$e831.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"79ook":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$528c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$528c.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$528c.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _s = $RefreshSig$();
+const useMovieData = ()=>{
+    _s();
+    const [videoList, setVideoList] = (0, _react.useState)(null);
+    const [search, setSearch] = (0, _react.useState)("movie");
+    const [year, setYear] = (0, _react.useState)("");
+    const [type, setType] = (0, _react.useState)("");
+    const [page, setPage] = (0, _react.useState)(1);
+    const [totalResults, setTotalResults] = (0, _react.useState)(0);
+    const [error, setError] = (0, _react.useState)("");
+    (0, _react.useEffect)(()=>{
+        fetchData();
+    }, [
+        search,
+        page
+    ]);
+    const fetchData = async ()=>{
+        try {
+            setError("");
+            const data = await fetch(`https://www.omdbapi.com/?i=12&apikey=177068ae&s=${search}&y=${year}&type=${type}&page=${page}`);
+            const json = await data.json();
+            if (json.Response === "False") {
+                setError(json.Error || "Something went wrong");
+                setTotalResults(0);
+                return;
+            }
+            setVideoList(json.Search);
+            setTotalResults(parseInt(json.totalResults) || 0);
+        } catch (err) {
+            setError("Failed to fetch data. Please try again.");
+        }
+    };
+    return {
+        videoList,
+        setVideoList,
+        search,
+        setSearch,
+        year,
+        setYear,
+        type,
+        setType,
+        error,
+        setError,
+        page,
+        setPage,
+        totalResults,
+        setTotalResults
+    };
+};
+_s(useMovieData, "+VEc6nQ4vo4wxR3AhaZ2EWOJ67s=");
+exports.default = useMovieData;
+
+  $parcel$ReactRefreshHelpers$528c.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"jMk1U","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"2GzWi":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$8f8d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$8f8d.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8f8d.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const Filter = ({ inputValue, setInputValue, year, setYear, type, setType, setSearch })=>{
+    const handleInputChange = (e)=>{
+        setInputValue(e.target.value);
+    };
+    const handleInputYear = (e)=>{
+        setYear(e.target.value);
+    };
+    const handleSearch = ()=>{
+        setSearch(inputValue);
+        setInputValue("");
+    };
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "flex flex-col sm:flex-row items-center  gap-2 mb-6",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                className: "flex w-full sm:w-auto ",
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        className: "m-2 font-semibold",
+                        children: "Title :"
+                    }, void 0, false, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 20,
+                        columnNumber: 11
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        className: "flex-1 p-2 border border-gray-400 rounded-full focus:outline-none",
+                        placeholder: "Search...",
+                        value: inputValue,
+                        onChange: handleInputChange
+                    }, void 0, false, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 21,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Filter.js",
+                lineNumber: 19,
+                columnNumber: 9
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        className: "m-2 font-semibold",
+                        children: "Year :"
+                    }, void 0, false, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 29,
+                        columnNumber: 13
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        className: "flex-1 p-2 w-25 border border-gray-400 rounded-full focus:outline-none ",
+                        value: year,
+                        onChange: handleInputYear
+                    }, void 0, false, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 30,
+                        columnNumber: 13
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        className: "m-2 font-semibold",
+                        children: "Type :"
+                    }, void 0, false, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 37,
+                        columnNumber: 12
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
+                        className: "p-2 m-2 border rounded-full bg-white",
+                        value: type,
+                        onChange: (e)=>setType(e.target.value),
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                value: "",
+                                children: "All"
+                            }, void 0, false, {
+                                fileName: "src/components/Filter.js",
+                                lineNumber: 43,
+                                columnNumber: 19
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                value: "movie",
+                                children: "Movie"
+                            }, void 0, false, {
+                                fileName: "src/components/Filter.js",
+                                lineNumber: 44,
+                                columnNumber: 19
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                value: "series",
+                                children: "Series"
+                            }, void 0, false, {
+                                fileName: "src/components/Filter.js",
+                                lineNumber: 45,
+                                columnNumber: 19
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 38,
+                        columnNumber: 14
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        onClick: handleSearch,
+                        className: "p-2 px-4 bg-gray-900 text-white rounded-full hover:text-blue-400",
+                        children: "Search"
+                    }, void 0, false, {
+                        fileName: "src/components/Filter.js",
+                        lineNumber: 48,
+                        columnNumber: 13
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Filter.js",
+                lineNumber: 28,
+                columnNumber: 9
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/Filter.js",
+        lineNumber: 18,
+        columnNumber: 5
+    }, undefined);
+};
+_c = Filter;
+exports.default = Filter;
+var _c;
+$RefreshReg$(_c, "Filter");
+
+  $parcel$ReactRefreshHelpers$8f8d.postlude(module);
+} finally {
+  globalThis.$RefreshReg$ = prevRefreshReg;
+  globalThis.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"dVPUn","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"7h6Pi"}],"ozIoh":[function(require,module,exports,__globalThis) {
+var $parcel$ReactRefreshHelpers$8247 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+$parcel$ReactRefreshHelpers$8247.init();
+var prevRefreshReg = globalThis.$RefreshReg$;
+var prevRefreshSig = globalThis.$RefreshSig$;
+$parcel$ReactRefreshHelpers$8247.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const Pagination = ({ page, setPage, totalPages })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "flex justify-center gap-4 mt-6",
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                className: "btn p-2 px-4 bg-gray-900 text-white rounded-full hover:text-blue-400",
+                onClick: ()=>setPage((p)=>Math.max(p - 1, 1)),
+                disabled: page === 1,
+                children: "Prev"
+            }, void 0, false, {
+                fileName: "src/components/Pagination.js",
+                lineNumber: 6,
+                columnNumber: 11
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                className: "flex items-center font-bold",
+                children: [
+                    "Page ",
+                    page,
+                    " of ",
+                    totalPages
+                ]
+            }, void 0, true, {
+                fileName: "src/components/Pagination.js",
+                lineNumber: 13,
+                columnNumber: 11
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                className: "btn p-2 px-4 bg-gray-900 text-white rounded-full hover:text-blue-400",
+                onClick: ()=>setPage((p)=>Math.min(p + 1, totalPages)),
+                disabled: page === totalPages,
+                children: "Next"
+            }, void 0, false, {
+                fileName: "src/components/Pagination.js",
+                lineNumber: 16,
+                columnNumber: 11
+            }, undefined)
+        ]
+    }, void 0, true, {
+        fileName: "src/components/Pagination.js",
+        lineNumber: 5,
+        columnNumber: 9
+    }, undefined);
+};
+_c = Pagination;
+exports.default = Pagination;
+var _c;
+$RefreshReg$(_c, "Pagination");
+
+  $parcel$ReactRefreshHelpers$8247.postlude(module);
 } finally {
   globalThis.$RefreshReg$ = prevRefreshReg;
   globalThis.$RefreshSig$ = prevRefreshSig;
